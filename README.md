@@ -4,7 +4,7 @@
 - **Name**: Template
 - **Schema**: "https://raw.githubusercontent.com/zarr-conventions/template/refs/tags/v0.1.0/schema.json"
 - **Scope**: Array, Group
-- **Extension Maturity Classification****: Proposal
+- **Extension Maturity Classification**: Proposal
 - **Owner**: @your-github-handle, @another-github-handle
 
 The document explains the Template convention, which is a Zarr convention metadata. This is the place to add a short introduction.
