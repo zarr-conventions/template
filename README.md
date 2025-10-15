@@ -3,15 +3,13 @@
 - **UUID**: f010a634-3525-416e-9320-8f44b5bc352c
 - **Name**: Template
 - **Schema**: "https://raw.githubusercontent.com/zarr-conventions/template/refs/tags/v0.1.0/schema.json"
-- **Scope**: Array, Group
 - **Extension Maturity Classification**: Proposal
 - **Owner**: @your-github-handle, @another-github-handle
 
 The document explains the Template convention, which is a Zarr convention metadata. This is the place to add a short introduction.
 
 - Examples:
-    - [Array example](examples/array_convention_metadata.json)
-    - [Group example](examples/array_convention_metadata.json)
+    - [Zarr metadata conventions example](examples/zarr_convention_metadata.json)
 
 ## Configuration
 
