@@ -1,7 +1,43 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Template Convention",
-  "description": "Schema for Template Zarr convention, including both convention metadata and root-level attributes",
+  "description": "Schema for Template Zarr convention, supporting both key-prefixed and nested namespace patterns",
+  "type": "object",
+  "properties": {
+    "zarr_format": {
+      "type": "integer",
+      "description": "Zarr format version"
+    },
+    "node_type": {
+      "type": "string",
+      "enum": ["array", "group"],
+      "description": "Type of Zarr node"
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Zarr attributes containing convention metadata and properties",
+      "properties": {
+        "zarr_conventions": {
+          "type": "array",
+          "description": "Array of convention metadata objects",
+          "contains": {
+            "$ref": "#/$defs/conventionMetadata"
+          }
+        }
+      },
+      "required": ["zarr_conventions"],
+      "oneOf": [
+        {
+          "$ref": "#/$defs/keyPrefixedAttributes"
+        },
+        {
+          "$ref": "#/$defs/nestedAttributes"
+        }
+      ]
+    }
+  },
+  "required": ["zarr_format", "node_type", "attributes"],
+  "additionalProperties": true,
   "$defs": {
     "conventionMetadata": {
       "type": "object",
@@ -24,8 +60,7 @@
         },
         "name": {
           "type": "string",
-          "const": "Template",
-          "description": "Human-readable name of the convention"
+          "description": "Human-readable name of the convention. Should be 'template:' for key-prefixed pattern or 'template' for nested pattern"
         },
         "description": {
           "type": "string",
@@ -46,33 +81,59 @@
       ],
       "additionalProperties": false
     },
-    "rootLevelAttributes": {
+    "conventionProperties": {
       "type": "object",
-      "description": "Template convention root-level attributes that appear in the attributes object",
+      "description": "Template convention properties",
       "properties": {
+        "new_field": {
+          "type": "string",
+          "description": "REQUIRED. Describe the required field..."
+        },
+        "xyz": {
+          "$ref": "#/$defs/xyzObject"
+        },
+        "another_one": {
+          "type": "array",
+          "description": "Array of numeric values",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "required": ["new_field"],
+      "additionalProperties": false
+    },
+    "xyzObject": {
+      "type": "object",
+      "description": "XYZ Object containing x, y, z coordinates",
+      "properties": {
+        "x": {
+          "type": "number",
+          "description": "REQUIRED. X coordinate value"
+        },
+        "y": {
+          "type": "number",
+          "description": "REQUIRED. Y coordinate value"
+        },
+        "z": {
+          "type": "number",
+          "description": "REQUIRED. Z coordinate value"
+        }
+      },
+      "required": ["x", "y", "z"],
+      "additionalProperties": false
+    },
+    "keyPrefixedAttributes": {
+      "type": "object",
+      "description": "Template convention using key-prefixed pattern (e.g., template:new_field)",
+      "properties": {
+        "zarr_conventions": true,
         "template:new_field": {
           "type": "string",
           "description": "REQUIRED. Describe the required field..."
         },
         "template:xyz": {
-          "type": "object",
-          "description": "XYZ Object containing x, y, z coordinates",
-          "properties": {
-            "x": {
-              "type": "number",
-              "description": "REQUIRED. X coordinate value"
-            },
-            "y": {
-              "type": "number",
-              "description": "REQUIRED. Y coordinate value"
-            },
-            "z": {
-              "type": "number",
-              "description": "REQUIRED. Z coordinate value"
-            }
-          },
-          "required": ["x", "y", "z"],
-          "additionalProperties": false
+          "$ref": "#/$defs/xyzObject"
         },
         "template:another_one": {
           "type": "array",
@@ -82,8 +143,20 @@
           }
         }
       },
-      "required": ["template:new_field"]
+      "required": ["template:new_field"],
+      "additionalProperties": true
+    },
+    "nestedAttributes": {
+      "type": "object",
+      "description": "Template convention using nested pattern (single 'template' key)",
+      "properties": {
+        "zarr_conventions": true,
+        "template": {
+          "$ref": "#/$defs/conventionProperties"
+        }
+      },
+      "required": ["template"],
+      "additionalProperties": true
     }
-  },
-  "$ref": "#/$defs/conventionMetadata"
+  }
 }
