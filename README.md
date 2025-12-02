@@ -2,33 +2,37 @@
 
 - **UUID**: f010a634-3525-416e-9320-8f44b5bc352c
 - **Name**: Template
-- **Schema**: "https://raw.githubusercontent.com/zarr-conventions/template/refs/tags/v0.1.0/schema.json"
-- **Extension Maturity Classification**: Proposal
+- **Schema URL**: "https://raw.githubusercontent.com/zarr-conventions/template/refs/tags/v1/schema.json"
+- **Spec URL**: "https://github.com/zarr-conventions/template/blob/v1/README.md"
+- **Scope**: Array, Group
+- **Extension Maturity Classification****: Proposal
 - **Owner**: @your-github-handle, @another-github-handle
 
 The document explains the Template convention, which is a Zarr convention metadata. This is the place to add a short introduction.
 
 - Examples:
-    - [Zarr metadata conventions example](examples/zarr_convention_metadata.json)
+    - [Convention metadata example](examples/zarr_convention_metadata.json)
 
-## Configuration
+## Convention Attributes
 
-The configuration in the Zarr convention metadata can be used in these parts of the Zarr hierarchy:
+This convention defines attributes that appear at the root level of the Zarr `attributes` object. The convention can be used in these parts of the Zarr hierarchy:
 
 - [x] Group
 - [x] Array
 
+All convention-specific attribute names are prefixed with `template:` to avoid conflicts with other conventions.
+
 | Field Name           | Type                      | Description                                  |
 | -------------------- | ------------------------- | -------------------------------------------- |
-| new_field   | string                    | **REQUIRED**. Describe the required field... |
-| xyz         | [XYZ Object](#xyz-object) | Describe the field...                        |
-| another_one | \[number]                 | Describe the field...                        |
+| template:new_field   | string                    | **REQUIRED**. Describe the required field... |
+| template:xyz         | [XYZ Object](#xyz-object) | Describe the field...                        |
+| template:another_one | \[number]                 | Describe the field...                        |
 
 ### Additional Field Information
 
-#### new_field
+#### template:new_field
 
-This is a much more detailed description of the field `new_field`...
+This is a much more detailed description of the field `template:new_field`...
 
 ### XYZ Object
 

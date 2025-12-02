@@ -1,22 +1,26 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Template Convention Metadata",
-  "description": "Schema for Template Zarr convention metadata with fixed UUID and exact values",
-  "type": "object",
-  "properties": {
-    "f010a634-3525-416e-9320-8f44b5bc352c": {
+  "title": "Template Convention",
+  "description": "Schema for Template Zarr convention, including both convention metadata and root-level attributes",
+  "$defs": {
+    "conventionMetadata": {
       "type": "object",
-      "description": "Template convention metadata",
+      "description": "Template convention metadata object for use in zarr_conventions array",
       "properties": {
-        "version": {
+        "schema_url": {
           "type": "string",
-          "const": "0.1.0",
-          "description": "Semantic version number of the convention"
-        },
-        "schema": {
-          "type": "string",
-          "const": "https://raw.githubusercontent.com/zarr-conventions/template/refs/tags/v0.1.0/schema.json",
+          "const": "https://raw.githubusercontent.com/zarr-conventions/template/refs/tags/v1/schema.json",
           "description": "URL to the JSON Schema definition for this convention"
+        },
+        "spec_url": {
+          "type": "string",
+          "const": "https://github.com/zarr-conventions/template/blob/v1/README.md",
+          "description": "URL to the full specification document"
+        },
+        "uuid": {
+          "type": "string",
+          "const": "f010a634-3525-416e-9320-8f44b5bc352c",
+          "description": "UUID that permanently identifies this convention"
         },
         "name": {
           "type": "string",
@@ -27,56 +31,59 @@
           "type": "string",
           "const": "Template convention for demonstrating Zarr convention metadata structure",
           "description": "Brief description of the convention's purpose and usage"
-        },
-        "spec": {
-          "type": "string",
-          "const": "https://github.com/zarr-conventions/template/blob/v0.1.0/README.md",
-          "description": "URL to the full specification document"
-        },
-        "configuration": {
-          "type": "object",
-          "description": "Convention-specific configuration parameters",
-          "properties": {
-            "new_field": {
-              "type": "string",
-              "description": "REQUIRED. Describe the required field..."
-            },
-            "xyz": {
-              "type": "object",
-              "description": "XYZ Object containing x, y, z coordinates",
-              "properties": {
-                "x": {
-                  "type": "number",
-                  "description": "REQUIRED. X coordinate value"
-                },
-                "y": {
-                  "type": "number",
-                  "description": "REQUIRED. Y coordinate value"
-                },
-                "z": {
-                  "type": "number",
-                  "description": "REQUIRED. Z coordinate value"
-                }
-              },
-              "required": ["x", "y", "z"],
-              "additionalProperties": false
-            },
-            "another_one": {
-              "type": "array",
-              "description": "Array of numeric values",
-              "items": {
-                "type": "number"
-              }
-            }
-          },
-          "required": ["new_field"],
-          "additionalProperties": false
         }
       },
-      "required": ["version", "schema", "name", "description", "spec", "configuration"],
+      "anyOf": [
+        {
+          "required": ["schema_url"]
+        },
+        {
+          "required": ["spec_url"]
+        },
+        {
+          "required": ["uuid"]
+        }
+      ],
       "additionalProperties": false
+    },
+    "rootLevelAttributes": {
+      "type": "object",
+      "description": "Template convention root-level attributes that appear in the attributes object",
+      "properties": {
+        "template:new_field": {
+          "type": "string",
+          "description": "REQUIRED. Describe the required field..."
+        },
+        "template:xyz": {
+          "type": "object",
+          "description": "XYZ Object containing x, y, z coordinates",
+          "properties": {
+            "x": {
+              "type": "number",
+              "description": "REQUIRED. X coordinate value"
+            },
+            "y": {
+              "type": "number",
+              "description": "REQUIRED. Y coordinate value"
+            },
+            "z": {
+              "type": "number",
+              "description": "REQUIRED. Z coordinate value"
+            }
+          },
+          "required": ["x", "y", "z"],
+          "additionalProperties": false
+        },
+        "template:another_one": {
+          "type": "array",
+          "description": "Array of numeric values",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "required": ["template:new_field"]
     }
   },
-  "required": ["f010a634-3525-416e-9320-8f44b5bc352c"],
-  "additionalProperties": true
+  "$ref": "#/$defs/conventionMetadata"
 }
