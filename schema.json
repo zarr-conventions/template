@@ -55,7 +55,7 @@
         },
         "uuid": {
           "type": "string",
-          "const": "f010a634-3525-416e-9320-8f44b5bc352c",
+          "const": "00000000-0000-0000-0000-000000000000",
           "description": "UUID that permanently identifies this convention"
         },
         "name": {

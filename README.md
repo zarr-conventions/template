@@ -1,6 +1,6 @@
 # Template Convention Metadata
 
-- **UUID**: f010a634-3525-416e-9320-8f44b5bc352c
+- **UUID**: 00000000-0000-0000-0000-000000000000
 - **Name**: Template
 - **Schema URL**: "https://raw.githubusercontent.com/zarr-conventions/template/refs/tags/v1/schema.json"
 - **Spec URL**: "https://github.com/zarr-conventions/template/blob/v1/README.md"
