@@ -53,7 +53,7 @@ This convention can be used with these parts of the Zarr hierarchy:
 
 ## Properties
 
-All properties are placed at the root `attributes` level. To avoid attribute name collisions with other conventions, this convention supports two patterns:
+All properties are placed at the root `attributes` level. To avoid attribute name collisions with other conventions, this convention supports the following pattern [remove the pattern irrelevant for this convention]:
 
 #### 1. Key-Prefixed Pattern (Recommended)
 
